@@ -118,7 +118,7 @@ const existing = await probe(WEB_URL);
 if (existing !== null) {
   if (existing.includes('LinkUP')) {
     say(`  LinkUP is already running — opening ${WEB_URL}`);
-    openBrowser(WEB_URL);
+    if (!process.env.LINKUP_NO_BROWSER) openBrowser(WEB_URL);
     process.exit(0);
   }
   await fail(`Port ${WEB_PORT} is used by another program. Close it and try again.`);
@@ -181,7 +181,7 @@ if (firstRun) {
   }
 }
 
-openBrowser(WEB_URL);
+if (!process.env.LINKUP_NO_BROWSER) openBrowser(WEB_URL);
 say(`  ✓ LinkUP is running at ${WEB_URL} (opened in your browser)`);
 say(`    Data: ${dataDir}`);
 say('');

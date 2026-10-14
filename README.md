@@ -54,7 +54,8 @@ apps/web      Next.js 16 · shadcn/ui · Tailwind 4 — server components call t
 apps/api      NestJS 12 — profiles, matching, mentorship lifecycle, dashboard, bot outbox
 apps/bot      Webex bot (webex-node-bot-framework, WebSocket mode)
 packages/core taxonomy v5, zod schemas, 100-point engine (pure, no I/O)
-packages/db   Drizzle schema + migrations (PostgreSQL + pgvector), demo seed
+packages/db   Drizzle schema + migrations (PostgreSQL or embedded PGlite, + pgvector), demo seed
+desktop/      one-click demo launcher (Bun) and package builder
 packages/embeddings  on-device MiniLM embeddings (transformers.js), hash fallback
 ```
 
@@ -130,6 +131,32 @@ Other options if WebSockets were blocked: a small cloud function that receives
 webhooks and writes to a queue the local worker pulls from; or a shared dev VM
 with a real HTTPS URL. Public relays (smee.io etc.) are not recommended for
 confidential data.
+
+## One-click desktop demo (macOS + Windows)
+
+For sharing the demo without any setup: a zip per OS with a launcher that runs
+everything locally — no Podman, Postgres or Node needed.
+
+```bash
+pnpm desktop:build      # → dist-desktop/LinkUP-Demo-macOS-AppleSilicon.zip, LinkUP-Demo-Windows-x64.zip
+```
+
+- **Launcher** (`desktop/launcher.ts`, compiled with `bun build --compile`): starts the
+  API and the Next.js standalone server using itself as the Bun runtime
+  (`BUN_BE_BUN=1`), then opens http://127.0.0.1:39520. Closing its window stops everything.
+- **Database:** embedded [PGlite](https://pglite.dev) (Postgres compiled to WASM) with
+  pgvector — same schema, migrations and queries as PostgreSQL, selected with
+  `DATABASE_URL=pglite:<dir>`. Data lives in `~/Library/Application Support/LinkUP Demo`
+  or `%APPDATA%\LinkUP Demo`; the first start creates and seeds it (~15 s).
+- **Model:** the MiniLM embedding model ships inside the package; nothing is downloaded.
+- **Packaging** (`desktop/build.ts`): flat node_modules without symlinks and short paths
+  (Windows "Extract all" works), only the target OS's onnxruntime binaries, and a stub
+  for `sharp` (image processing is never used).
+- Program admin → Program dashboard → **Reset demo data** regenerates the dataset.
+- Unsigned: macOS asks to confirm the first open (right-click → Open, or System Settings →
+  Privacy & Security → Open Anyway); Windows SmartScreen → More info → Run anyway.
+- Tested on macOS (Apple Silicon). The Windows package is built and checked structurally
+  but has not been run on Windows yet.
 
 ## Hosted demo (Cloudflare)
 
