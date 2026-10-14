@@ -1,0 +1,33 @@
+{
+  "name": "@linkup/api",
+  "version": "0.1.0",
+  "private": true,
+  "description": "LinkUP control-plane API (NestJS): profiles, matching, mentorships, dashboard, bot outbox",
+  "type": "module",
+  "scripts": {
+    "build": "rm -rf dist && tsc -p tsconfig.build.json",
+    "dev": "tsc-watch -p tsconfig.build.json --noClear --onSuccess \"node --env-file=../../.env --enable-source-maps dist/main.js\"",
+    "start": "node --env-file=../../.env --enable-source-maps dist/main.js",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@linkup/core": "workspace:*",
+    "@linkup/db": "workspace:*",
+    "@linkup/embeddings": "workspace:*",
+    "@nestjs/common": "^12.1.2",
+    "@nestjs/core": "^12.1.2",
+    "@nestjs/platform-express": "^12.1.2",
+    "@nestjs/swagger": "^12.0.2",
+    "drizzle-orm": "^0.45.3",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.2",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "tsc-watch": "^7.2.1"
+  },
+  "files": [
+    "dist"
+  ]
+}

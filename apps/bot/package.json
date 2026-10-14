@@ -1,0 +1,19 @@
+{
+  "name": "@linkup/bot",
+  "version": "0.1.0",
+  "private": true,
+  "description": "LinkUP Webex bot — WebSocket mode (no public URL / ngrok needed)",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch --env-file=../../.env src/index.ts",
+    "start": "tsx --env-file=../../.env src/index.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@linkup/core": "workspace:*",
+    "webex-node-bot-framework": "^3.0.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.20.0"
+  }
+}

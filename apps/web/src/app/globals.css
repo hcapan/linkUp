@@ -1,0 +1,216 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * shadcn/ui theme mapped onto the Cisco palette from the concept mockup
+ * (ink #07182D · blue #0A60FF · cyan #02C8FF · magenta #FF007F · orange #FF9000).
+ * Standard shadcn tokens first, LinkUP extras (cyan, success, warning, magenta, ink) after.
+ */
+:root {
+  --radius: 0.75rem;
+
+  --background: #f4f6f9;
+  --foreground: #07182d;
+  --card: #ffffff;
+  --card-foreground: #07182d;
+  --popover: #ffffff;
+  --popover-foreground: #07182d;
+  --primary: #0a60ff;
+  --primary-foreground: #ffffff;
+  --secondary: #eef1f5;
+  --secondary-foreground: #07182d;
+  --muted: #eef1f5;
+  --muted-foreground: #525e6c;
+  --accent: #eef3ff;
+  --accent-foreground: #07182d;
+  --destructive: #e5484d;
+  --border: #e4e8ee;
+  --input: #dde2e9;
+  --ring: #0a60ff;
+
+  --chart-1: #0a60ff;
+  --chart-2: #02c8ff;
+  --chart-3: #12b76a;
+  --chart-4: #ff9000;
+  --chart-5: #ff007f;
+
+  --sidebar: #ffffff;
+  --sidebar-foreground: #07182d;
+  --sidebar-primary: #0a60ff;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #eef3ff;
+  --sidebar-accent-foreground: #07182d;
+  --sidebar-border: #e4e8ee;
+  --sidebar-ring: #0a60ff;
+
+  /* LinkUP extras */
+  --subtle: #8a94a1;
+  --primary-soft: rgba(10, 96, 255, 0.1);
+  --primary-text: #0a60ff;
+  --cyan: #02c8ff;
+  --cyan-soft: rgba(2, 200, 255, 0.14);
+  --cyan-text: #0787a8;
+  --success: #12b76a;
+  --success-soft: rgba(18, 183, 106, 0.14);
+  --success-text: #0c7a47;
+  --warning: #ff9000;
+  --warning-soft: rgba(255, 144, 0, 0.16);
+  --warning-text: #a35c00;
+  --magenta: #ff007f;
+  --magenta-soft: rgba(255, 0, 127, 0.1);
+  --magenta-text: #c40062;
+  --destructive-soft: rgba(229, 72, 77, 0.12);
+  --destructive-text: #b4232a;
+
+  /* App bar and hero stay dark in both themes */
+  --ink: #07182d;
+  --ink-foreground: #ffffff;
+  --ink-muted: #b4b9c0;
+
+  /* Chart series (validated: CVD + contrast vs card surface, see dataviz validator) */
+  --viz-supply: #0a60ff;
+  --viz-demand: #e07a00;
+
+  --shadow-card: 0 1px 2px rgba(7, 24, 45, 0.06), 0 8px 24px rgba(7, 24, 45, 0.08);
+  color-scheme: light;
+}
+
+.dark {
+  --background: #050d18;
+  --foreground: #e7edf5;
+  --card: #0b1728;
+  --card-foreground: #e7edf5;
+  --popover: #0e1b2f;
+  --popover-foreground: #e7edf5;
+  --primary: #2f7bff;
+  --primary-foreground: #ffffff;
+  --secondary: #13233a;
+  --secondary-foreground: #e7edf5;
+  --muted: #13233a;
+  --muted-foreground: #9aa8ba;
+  --accent: #152a47;
+  --accent-foreground: #e7edf5;
+  --destructive: #f2555a;
+  --border: #1a2a41;
+  --input: #22354f;
+  --ring: #4f90ff;
+
+  --sidebar: #0b1728;
+  --sidebar-foreground: #e7edf5;
+  --sidebar-primary: #2f7bff;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #152a47;
+  --sidebar-accent-foreground: #e7edf5;
+  --sidebar-border: #1a2a41;
+  --sidebar-ring: #4f90ff;
+
+  --subtle: #66758a;
+  --primary-soft: rgba(59, 130, 255, 0.16);
+  --primary-text: #6ea3ff;
+  --cyan-soft: rgba(2, 200, 255, 0.14);
+  --cyan-text: #4fd8ff;
+  --success-soft: rgba(18, 183, 106, 0.16);
+  --success-text: #3ddc97;
+  --warning-soft: rgba(255, 144, 0, 0.16);
+  --warning-text: #ffb54d;
+  --magenta-soft: rgba(255, 0, 127, 0.14);
+  --magenta-text: #ff5aa8;
+  --destructive-soft: rgba(242, 85, 90, 0.16);
+  --destructive-text: #ff7b80;
+
+  --ink: #020810;
+  --viz-supply: #3d86ff;
+  --viz-demand: #d97706;
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.3);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --font-sans: var(--font-sans);
+  --font-heading: var(--font-sans);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --color-subtle: var(--subtle);
+  --color-primary-soft: var(--primary-soft);
+  --color-primary-text: var(--primary-text);
+  --color-cyan: var(--cyan);
+  --color-cyan-soft: var(--cyan-soft);
+  --color-cyan-text: var(--cyan-text);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-success-text: var(--success-text);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-warning-text: var(--warning-text);
+  --color-magenta: var(--magenta);
+  --color-magenta-soft: var(--magenta-soft);
+  --color-magenta-text: var(--magenta-text);
+  --color-destructive-soft: var(--destructive-soft);
+  --color-destructive-text: var(--destructive-text);
+  --color-ink: var(--ink);
+  --color-ink-foreground: var(--ink-foreground);
+  --color-ink-muted: var(--ink-muted);
+  --color-viz-supply: var(--viz-supply);
+  --color-viz-demand: var(--viz-demand);
+
+  --shadow-card: var(--shadow-card);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+}
+
+@utility eyebrow {
+  @apply text-[11px] font-extrabold tracking-[0.14em] text-primary-text uppercase;
+}
+
+@utility section-title {
+  @apply mt-9 mb-3.5 text-[13px] font-extrabold tracking-wide text-muted-foreground uppercase;
+}

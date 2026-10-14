@@ -1,0 +1,13 @@
+packages:
+  - apps/*
+  - packages/*
+  - deploy/*
+
+onlyBuiltDependencies:
+  - "@nestjs/core"
+  - "@swc/core"
+  - esbuild
+  - onnxruntime-node
+  - protobufjs
+  - sharp
+  - unrs-resolver

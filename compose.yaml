@@ -1,0 +1,24 @@
+# Local infrastructure for the LinkUP demo.
+# Start with: pnpm db:up   (podman compose up -d db)
+name: linkup
+
+services:
+  db:
+    image: docker.io/pgvector/pgvector:pg17
+    container_name: linkup-db
+    environment:
+      POSTGRES_USER: linkup
+      POSTGRES_PASSWORD: linkup
+      POSTGRES_DB: linkup
+    ports:
+      - "127.0.0.1:5434:5432"
+    volumes:
+      - linkup-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U linkup -d linkup"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+volumes:
+  linkup-pgdata:

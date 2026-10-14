@@ -1,0 +1,25 @@
+node_modules/
+dist/
+.next/
+.turbo/
+*.tsbuildinfo
+.env
+.env.local
+.cache/
+coverage/
+.DS_Store
+next-env.d.ts
+.open-next/
+.wrangler/
+.dev.vars
+dist-desktop/
+
+# Kept locally, never in the repo
+# source spec (Cisco Confidential) and concept mockup
+docs/spec/
+# Claude Code working notes
+CLAUDE.md
+# Claude Code local settings
+.claude/
+# bun --compile temp files
+*.bun-build

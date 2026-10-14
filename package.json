@@ -1,0 +1,36 @@
+{
+  "name": "linkup",
+  "private": true,
+  "description": "Cisco SE LinkUP — mentor/mentee matching demo",
+  "type": "module",
+  "packageManager": "pnpm@10.13.1",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build:packages": "pnpm -r --filter \"./packages/*\" build",
+    "dev": "pnpm build:packages && pnpm -r --parallel --filter \"./packages/*\" --filter @linkup/api --filter @linkup/web dev",
+    "dev:bot": "pnpm --filter @linkup/bot dev",
+    "db:up": "podman compose up -d db",
+    "db:down": "podman compose down",
+    "db:migrate": "pnpm --filter @linkup/db migrate",
+    "db:generate": "pnpm --filter @linkup/db generate",
+    "db:seed": "pnpm --filter @linkup/db seed",
+    "db:reset": "pnpm --filter @linkup/db reset",
+    "bootstrap": "pnpm install && pnpm build:packages && pnpm db:up && pnpm db:migrate && pnpm db:seed",
+    "test": "pnpm -r test",
+    "typecheck": "pnpm -r typecheck",
+    "build": "pnpm -r build",
+    "models:fetch": "node --input-type=module -e \"const { LocalEmbeddingProvider } = await import('./packages/embeddings/dist/index.js'); await new LocalEmbeddingProvider().embed(['ok']); console.log('model cached in .cache/models')\"",
+    "cf:login": "pnpm --filter @linkup/web exec wrangler login",
+    "cf:secret:db": "pnpm --filter @linkup/cloudflare-api exec wrangler secret put DATABASE_URL",
+    "cf:deploy:api": "pnpm build:packages && pnpm models:fetch && WRANGLER_DOCKER_BIN=\"$PWD/scripts/podman-docker.sh\" DOCKER_HOST=\"unix://$(podman machine inspect --format '{{.ConnectionInfo.PodmanSocket.Path}}')\" pnpm --filter @linkup/cloudflare-api run cf:deploy",
+    "cf:deploy:web": "pnpm build:packages && pnpm --filter @linkup/web run cf:deploy",
+    "cf:deploy": "pnpm cf:deploy:api && pnpm cf:deploy:web",
+    "desktop:build": "bun desktop/build.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "typescript": "~6.0.3"
+  }
+}
